@@ -4,7 +4,7 @@
 var container_El        = document.querySelector("#main-container")
 var weatherContainer_El = document.querySelector(".weatherContainer")
 
-// var hourContainer_El    = document.querySelector(".hrlyContainer")
+// var hourContainer_El    = document.querySelector("#hrId")
 var apiKey              = "7b202dce414b68293815009ca772fd69"
 var baseUrl             = "https://api.forecast.io/forecast/" + apiKey
 var hashController
@@ -60,8 +60,6 @@ var navConstructor = function(dom_node, navTemplateBuilder){
 }
 
 var handleViewChange = function(event){
-	console.log(event.target)
-	console.log(event.target.value)
 	window.location.hash = event.target.value //this is the value of the navButton_El  // //Connecting buttons to hash
 }
 
@@ -82,8 +80,28 @@ var hourlyForecastFunc = function(hourlyDataObject){
 		hourlyObj = hourlyDataArray[i]
 		htmlStr += hourlyForecastTemplate(hourlyObj)
 	}
-	return htmlStr
+	return '<div id="hourlyForecast">' + htmlStr + '</div>'
 }
+
+// var dateConverter = function(dataObj){
+// 	var dataObj = weatherData
+// var reportedDateTime = new Date(dataObj.hourly.data[i].time*1000)
+// var readableDateStr = reportedDateTime.getHours()-12  + ":"+ reportedDateTime.getMinutes()+"0"
+// }
+var dateConverter = function(dataObj){
+	var hourlyObj = dataObj.hourly.data
+	console.log(hourlyObj)
+	// for(var i=0; i<25; i++){
+	// 	hrlyTime = hourlyObj[i]
+	// 	console.log(hrlyTime)
+		
+	}
+	// var dateObj = new Date()
+	// var dateInt_ms = dateObj.getTime()
+	// var datePlus24 = dateInt_ms + 1000*60*60*24
+// 	new Date(hrlyTime*1000)
+
+// }
 
 // ------------------------ TEMPLATES ----------------------------------//
 
@@ -129,7 +147,7 @@ var buttonCreatorTemplate = function(inputArr){  // button template
 
 // ------------------------ BUTTON CONTRUCTOR ----------------------------------//
 
-var navViewInstance           = new navConstructor(".buttonContainer", buttonCreatorTemplate)
+var navViewInstance = new navConstructor(".buttonContainer", buttonCreatorTemplate)
 
 
 var buttonArray =['CurrentForecast','7DayForecast','HourlyForecast'] // Button Information
@@ -146,6 +164,6 @@ for (var i = 0 ; i < buttonArray.length ; i++){
 navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
 
 window.addEventListener("hashchange", hashController)
-
+dateConverter()
 
 
